@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import PageHeader from "../components/PageHeader";
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const headCells = [
-  { id: "person_id", label: "환자 id" },
+  { id: "person_id", label: "환자 id", disableSorting: true },
   { id: "gender_source_value", label: "성별" },
   { id: "birth_datetime", label: "생년월일" },
   { id: "age", label: "나이" },
@@ -56,6 +56,11 @@ const DashBoard = () => {
   const classes = useStyles();
   const personURL = "dummy/person.json";
   const [records, loading] = useFetch(personURL);
+  const [filterFn, setFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
 
   useEffect(() => {
     console.log(records.person);
@@ -65,7 +70,7 @@ const DashBoard = () => {
     TableHeader,
     Pagination,
     recordsFilterPaginationAndSorting,
-  } = useTable(records.person, headCells);
+  } = useTable(records.person, headCells, filterFn);
   return (
     <>
       <SideMenu />
