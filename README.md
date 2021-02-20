@@ -3,6 +3,8 @@
 ```
 // 터미널 명령어
 yarn && yarn start
+
+// public폴더 내의 dummy라는 폴더를 생성하여 데이터를 넣어야 한다.
 ```
 
 # 프로젝트 구조
@@ -23,10 +25,10 @@ yarn && yarn start
 
 1. TableRow 클릭 시, 확장 row 기능 구현
 
-- person_id 를 기준으로 row onclick 시, conditoin_occurrence정보와 visit_occurrence row 를 lentgth 를 가져와 새로운 배열에 넣어 구현
+- 회원정보의 고유ID를 기준으로 row onclick 시, 조건 정보와 방문정보의 lentgth 를 가져와 새로운 배열에 넣어 구현
 
 2. 사명 여부 정보 미 표현
 
-- filter 기능을 이용하여 death와 person을 대조하여 새로운 배열 생성
+- filter 기능을 이용하여 사망정보와 회원정보을 대조하여 새로운 배열 생성
 
 3. pie chart 배열 메소드를 이용하여 성별, 인종, 민족 별로 배열을 만들어, 각각의 차드에 넣는다 .

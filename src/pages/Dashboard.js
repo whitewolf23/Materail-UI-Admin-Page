@@ -100,7 +100,9 @@ const DashBoard = () => {
           icon={<PeopleOutlineTwoTone fontSize="large" />}
         />
         {p_loading ? (
-          "loading"
+          <Typography variant="h6" component="div">
+            Loading...
+          </Typography>
         ) : (
           <>
             <Paper className={classes.dashboardContent}>
