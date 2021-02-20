@@ -49,6 +49,7 @@ const useTable = (records, headCells, filterFn) => {
       </TableHead>
     );
   };
+
   const handleChangePage = (e, newPage) => {
     setPage(newPage);
   };
