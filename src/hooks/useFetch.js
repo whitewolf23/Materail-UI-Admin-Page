@@ -11,15 +11,7 @@ const useFetch = (url) => {
     setLoading(false);
   };
 
-  // async function fetchUrl() {
-  //   await axios.get(url).then((response) => {
-  //     setRecord(response.data);
-  //   });
-  //   setLoading(false);
-  // }
-
   useEffect(() => {
-    // fetchUrl();
     fetchURL();
   }, []);
 

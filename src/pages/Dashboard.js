@@ -52,13 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useRowStyles = makeStyles({
-  root: {
-    // "& > *": {
-    //   borderBottom: "unset",
-    // },
-  },
-});
+const useRowStyles = makeStyles({});
 
 const headCells = [
   { id: "collapse", label: "", disableSorting: true },
@@ -73,8 +67,15 @@ const headCells = [
 
 const DashBoard = () => {
   const classes = useStyles();
+
   const personURL = "dummy/person.json";
-  const [records, loading] = useFetch(personURL);
+  const visitURL = "dummy/visit_occurrence.json";
+  const deathURL = "dummy/death.json";
+  const conditionURL = "dummy/condition_occurrence.json";
+  const [p_records, p_loading] = useFetch(personURL);
+  const [v_records, v_loading] = useFetch(visitURL);
+  const [d_records, d_loading] = useFetch(deathURL);
+  const [c_records, c_loading] = useFetch(conditionURL);
 
   const [filterFn, setFilterFn] = useState({
     fn: (items) => {
@@ -82,15 +83,11 @@ const DashBoard = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(records.person);
-  }, [records]);
-
   const {
     TableHeader,
     Pagination,
     recordsFilterPaginationAndSorting,
-  } = useTable(records.person, headCells, filterFn);
+  } = useTable(p_records.person, headCells, filterFn);
 
   return (
     <>
@@ -102,7 +99,7 @@ const DashBoard = () => {
           subTitle="과제"
           icon={<PeopleOutlineTwoTone fontSize="large" />}
         />
-        {loading ? (
+        {p_loading ? (
           "loading"
         ) : (
           <>
@@ -130,13 +127,17 @@ const DashBoard = () => {
 const Row = ({ row }) => {
   const [open, setOpen] = useState(false);
   const classes = useRowStyles();
-  const visitURL = "dummy/visit_occurrence.json";
-  const [records, loading] = useFetch(visitURL);
 
-  useEffect (() => {
-
-  },[])
-
+  const _calculateAge = (dateString) => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
 
   return (
     <>
@@ -153,7 +154,7 @@ const Row = ({ row }) => {
         <TableCell>{row.person_id}</TableCell>
         <TableCell>{row.gender_source_value}</TableCell>
         <TableCell>{row.birth_datetime}</TableCell>
-        <TableCell>{row.age}</TableCell>
+        <TableCell>{_calculateAge(row.birth_datetime)}</TableCell>
         <TableCell>{row.race_source_value}</TableCell>
         <TableCell>{row.ethnicity_source_value}</TableCell>
         <TableCell>{row.death_date}</TableCell>
@@ -163,30 +164,16 @@ const Row = ({ row }) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Detail
               </Typography>
-              <Table size="large" aria-label="purchases">
+              <Table size="medium" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>전체 방문 수 </TableCell>
                     <TableCell>진단정보</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
-
-                  {/* {row.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))} */}
-                </TableBody>
+                <TableBody>{/* detail 정보 */}</TableBody>
               </Table>
             </Box>
           </Collapse>

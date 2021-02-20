@@ -8,7 +8,6 @@ const useStyle = makeStyles({
     position: "absolute",
     color: "#fff",
     left: "0px",
-    // top: "0px",
     width: "320px",
     height: "100%",
     backgroundColor: "#243053",
@@ -17,7 +16,7 @@ const useStyle = makeStyles({
 
 const SideMenu = () => {
   const classes = useStyle();
-  return <div className={classes.sideMenu}>sideMenu</div>;
+  return <div className={classes.sideMenu}></div>;
 };
 
 export default SideMenu;
